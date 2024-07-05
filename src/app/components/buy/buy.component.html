@@ -1,1 +1,24 @@
-<p>buy works!</p>
+<h3>Cars</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Year</th>
+      <th>Color</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (c of allCars; track c.id) {
+    <tr>
+        <td>{{ c.make }}</td>
+        <td>{{ c.model }}</td>
+        <td>{{ c.year }}</td>
+        <td>{{ c.color }}</td>
+    </tr>
+    }
+  </tbody>
+
+</table>
