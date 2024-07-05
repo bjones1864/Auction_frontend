@@ -16,7 +16,7 @@ export interface Car {
     year:            number;
     color:           string;
     mileage:         number;
-    image:           null;
+    image:           string;
 
 }
 

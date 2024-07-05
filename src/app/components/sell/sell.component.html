@@ -1,6 +1,70 @@
 <h3>Sell Car</h3>
 
-<input type="text" [(ngModel)]="formMake" placeholder="Car Make">
-<input type="text" [(ngModel)]="formModel" placeholder="Car Model">
-<input type="text" [(ngModel)]="formYear" placeholder="Car Year">
-<!-- <button (click)="" >Submit</button> -->
+<input type="text" [(ngModel)]="formMake" required placeholder="Car Make">
+<input type="text" [(ngModel)]="formModel" required placeholder="Car Model">
+<input type="text" [(ngModel)]="formYear" required placeholder="Car Year">
+
+<button (click)="formSubmit()" >Submit</button>
+
+
+
+<table>
+    <thead>
+<tr>
+
+<th>Make</th>
+<th>Model</th>
+<th>Year</th>
+<th>City MPG</th>
+<th>Highway MPG</th>
+<th>Combined MPG</th>
+<th>Class</th>
+<th>Cylinders</th>
+<th>Displacement</th>
+<th>Drive</th>
+<th>Fuel Type</th>
+<th>Transmission</th>
+
+
+</tr>
+</thead>
+
+
+@for(f of filteredCARS;track $index){
+<tr>
+    <td>{{f.make}} </td>
+    <td>{{f.model}} </td>
+    <td>{{f.year}} </td>
+    <td>{{f.city_Mpg}} </td>
+    <td>{{f.highway_Mpg}} </td>
+    <td>{{f.combination_Mpg}} </td>
+    <td>{{f.class}} </td>
+    <td>{{f.cylinders}} </td>
+    <td>{{f.displacement}} </td>
+    <td>{{f.drive}} </td>
+    <td>{{f.fuel_Type}} </td>
+    <td>{{f.transmission}} </td>
+    <button (click)="selectCar(f)">Select this Car</button>
+
+
+
+
+</tr>
+}
+
+
+</table>
+
+
+
+
+<div>
+
+
+    <input type="text" [(ngModel)]="myCAR.color" required placeholder="Car Color">
+    <input type="text" [(ngModel)]="myCAR.mileage" required placeholder="Car Mileage">
+    <input type="text" [(ngModel)]="myCAR.image" placeholder="Car Image">
+
+<button (click)="sellCar()"> Save </button>
+
+</div>
