@@ -1,10 +1,13 @@
 <h3>Sell Car</h3>
 
-<input type="text" [(ngModel)]="formMake" required placeholder="Car Make">
-<input type="text" [(ngModel)]="formModel" required placeholder="Car Model">
-<input type="text" [(ngModel)]="formYear" required placeholder="Car Year">
+@if(isLoggedIn())
+{
+    <input type="text" [(ngModel)]="formMake" required placeholder="Car Make">
+    <input type="text" [(ngModel)]="formModel" required placeholder="Car Model">
+    <input type="text" [(ngModel)]="formYear" required placeholder="Car Year">
 
-<button (click)="formSubmit()" >Submit</button>
+    <button (click)="formSubmit()" >Submit</button>
+}
 
 
 
@@ -58,13 +61,3 @@
 
 
 
-<div>
-
-
-    <input type="text" [(ngModel)]="myCAR.color" required placeholder="Car Color">
-    <input type="text" [(ngModel)]="myCAR.mileage" required placeholder="Car Mileage">
-    <input type="text" [(ngModel)]="myCAR.image" placeholder="Car Image">
-
-<button (click)="sellCar()"> Save </button>
-
-</div>

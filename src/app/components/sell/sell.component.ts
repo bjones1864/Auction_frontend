@@ -23,6 +23,12 @@ export class SellComponent {
   filteredCARS: Car[] = [];
   myCAR: Car = {} as Car;
 
+  carSelected: boolean = false;
+
+  isLoggedIn(): boolean {
+    return this._userService.loggedIn;
+  }
+
   formSubmit() {
     this._carService
       .getCarsApi(this.formMake, this.formModel, this.formYear)
@@ -35,6 +41,7 @@ export class SellComponent {
   selectCar(_myCar: Car) {
     this.myCAR = _myCar;
     console.log(this.myCAR);
+    this.carSelected = true;
   }
 
  sellCar(){
