@@ -3,6 +3,8 @@ import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { Car } from '../../models/car';
 import { CarService } from '../../services/car.service';
+import { Auction } from '../../models/auction';
+import { AuctionService } from '../../services/auction.service';
 
 @Component({
   selector: 'app-sell',
@@ -14,7 +16,8 @@ import { CarService } from '../../services/car.service';
 export class SellComponent {
   constructor(
     private _userService: UserService,
-    private _carService: CarService
+    private _carService: CarService,
+    private _auctionService: AuctionService
   ) {}
   formModel: string = '';
   formMake: string = '';
@@ -22,6 +25,7 @@ export class SellComponent {
 
   filteredCARS: Car[] = [];
   myCAR: Car = {} as Car;
+  myAUCTION: Auction = {} as Auction;
 
   carSelected: boolean = false;
 
@@ -44,9 +48,28 @@ export class SellComponent {
     this.carSelected = true;
   }
 
- sellCar(){
-console.log(this.myCAR)
 
- } 
-
+  sellCar() {
+    this._userService
+      .getIdByEmail(this._userService.user.email)
+      .subscribe((responseID: number) => {
+        this.myCAR.sellerId = responseID;
+        this._carService
+          .SellCar(
+            this.myCAR,
+            this.myCAR.color,
+            this.myCAR.mileage,
+            this.myCAR.image
+          )
+          .subscribe((response: Car) => {
+            console.log(this.myCAR);
+            console.log(response);
+            this.myAUCTION.carId=response.id
+            this.myAUCTION.sellerId=responseID
+            this._auctionService.postAuction(this.myAUCTION).subscribe((responseAuction:Auction)=>{
+              console.log(responseAuction);
+            })
+          });
+      });
+  }
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CarService } from '../../services/car.service';
 import { Car } from '../../models/car';
+import { AuctionService } from '../../services/auction.service';
+import { Auction } from '../../models/auction';
 
 @Component({
   selector: 'app-buy',
@@ -11,11 +13,13 @@ import { Car } from '../../models/car';
 })
 export class BuyComponent {
 
-  constructor(private _carService:CarService){}
+  constructor(private _carService:CarService, private _auctionService:AuctionService){}
   allCars:Car[] = [];
-
+  allAuctions:Auction[] = [];
+  
   ngOnInit(){
-    this.getAllCars();
+    //this.getAllCars();
+    this.getAllAuctions();
   }
 
   getAllCars(){
@@ -24,5 +28,14 @@ export class BuyComponent {
       this.allCars = response;
     });
   }
+
+
+
+  getAllAuctions(){
+this._auctionService.getAllAuctions().subscribe((response:Auction[])=>{
+console.log(response);
+this.allAuctions = response;
+
+})}
 
 }

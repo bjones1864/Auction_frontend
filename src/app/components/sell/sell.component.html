@@ -5,7 +5,6 @@
     <input type="text" [(ngModel)]="formMake" required placeholder="Car Make">
     <input type="text" [(ngModel)]="formModel" required placeholder="Car Model">
     <input type="text" [(ngModel)]="formYear" required placeholder="Car Year">
-
     <button (click)="formSubmit()" >Submit</button>
 }
 
@@ -57,6 +56,30 @@
 
 
 </table>
+
+@if(carSelected){
+
+<div>
+
+
+    <input type="text" [(ngModel)]="myCAR.color" required placeholder="Car Color">
+    <input type="number" [(ngModel)]="myCAR.mileage" required placeholder="Car Mileage">
+    <input type="text" [(ngModel)]="myCAR.image" placeholder="Car Image">
+    <input type="number" [(ngModel)]="myAUCTION.startingBid" placeholder="starting bid">
+    <input type="datetime-local" [(ngModel)]="myAUCTION.startTime" placeholder="start time">
+    <input type="datetime-local" [(ngModel)]="myAUCTION.endTime" placeholder="end time">
+
+<button (click)="sellCar()"> Save </button>
+
+</div>
+
+
+
+
+}
+
+
+
 
 
 
