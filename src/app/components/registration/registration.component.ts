@@ -3,11 +3,12 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { FormsModule } from '@angular/forms';
 import { Auction } from '../../models/auction';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css',
 })

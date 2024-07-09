@@ -2,15 +2,10 @@
 
 @if(isLoggedIn()){
 
-<input type="text" [(ngModel)]="formUser.streetAddress" placeholder="enter street address" />
-<input type="text" [(ngModel)]="formUser.city" placeholder="enter city" />
-<input type="text" [(ngModel)]="formUser.state" placeholder="enter state" />
-<input type="text" [(ngModel)]="formUser.zip" placeholder="enter zip code" />
-<button (click)="postRegistration()">Submit</button>
-
-
-
-
-
+    <input type="text" [(ngModel)]="formUser.streetAddress" placeholder="enter street address" />
+    <input type="text" [(ngModel)]="formUser.city" placeholder="enter city" />
+    <input type="text" [(ngModel)]="formUser.state" placeholder="enter state" />
+    <input type="text" [(ngModel)]="formUser.zip" placeholder="enter zip code" />
+    <button (click)="postRegistration()" [routerLink]="'/'">Submit</button>
 
 }

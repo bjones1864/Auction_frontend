@@ -1,1 +1,23 @@
-<p>car-details works!</p>
+<h3>Car Details</h3>
+<ul>
+    <li> Make {{displayAuction.car.make}}</li>
+    <li> Model {{displayAuction.car.model}}</li>
+    <li> Year {{displayAuction.car.year}}</li>  
+    <li> transmission {{displayAuction.car.transmission}}</li> 
+    <li> class {{displayAuction.car.class}}</li> 
+    <li> cylinder {{displayAuction.car.cylinders}}</li>
+    <li> fuel_Type {{displayAuction.car.fuelType}}</li>
+    <li> combination_Mpg {{displayAuction.car.combinationMpg}}</li>
+    <li> city_Mpg {{displayAuction.car.cityMpg}}</li>
+    <li> highway_Mpg {{displayAuction.car.highwayMpg}}</li>
+    <li> color {{displayAuction.car.color}}</li>
+    <li> drive {{displayAuction.car.drive}}</li>
+    <li> displacement {{displayAuction.car.displacement}}</li>
+    <li> mileage {{displayAuction.car.mileage}}</li>
+    <li> startTime {{displayAuction.startTime}}</li>
+    <li> endTime {{displayAuction.endTime}}</li>
+</ul>
+@if(isRegistered()){
+    <input type="number" [(ngModel)]="currentBid.bidAmmount">
+    <button (click)="AddBid()">Bid</button>
+}

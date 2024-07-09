@@ -10,7 +10,7 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 })
 export class AuctionService {
   //url: string = 'https://carauctionbackend20240705110500.azurewebsites.net';
-  url:string = "https://localhost:7158"
+  url: string = 'https://localhost:7158';
 
   constructor(private http: HttpClient) {}
   allAuctions: Auction[] = [];
@@ -19,10 +19,11 @@ export class AuctionService {
     return this.http.get<Auction[]>(`${this.url}/api/Auction`);
   }
 
-postAuction(newAuction:Auction):Observable<Auction>{
+  getAuctionById(id:number):Observable<Auction>{
+    return this.http.get<Auction>(`${this.url}/api/Auction/${id}`)
+  }
 
-  return this.http.post<Auction>(`${this.url}/api/Auction`,newAuction);
-
-}
-
+  postAuction(newAuction: Auction): Observable<Auction> {
+    return this.http.post<Auction>(`${this.url}/api/Auction`, newAuction);
+  }
 }

@@ -5,6 +5,7 @@ import { Car } from '../../models/car';
 import { CarService } from '../../services/car.service';
 import { Auction } from '../../models/auction';
 import { AuctionService } from '../../services/auction.service';
+import { CarApi } from '../../models/car-api';
 
 @Component({
   selector: 'app-sell',
@@ -23,7 +24,8 @@ export class SellComponent {
   formMake: string = '';
   formYear: number = 0;
 
-  filteredCARS: Car[] = [];
+  // filteredCARS: Car[] = [];
+  filteredCARS: CarApi[] = [];
   myCAR: Car = {} as Car;
   myAUCTION: Auction = {} as Auction;
 
@@ -36,18 +38,33 @@ export class SellComponent {
   formSubmit() {
     this._carService
       .getCarsApi(this.formMake, this.formModel, this.formYear)
-      .subscribe((response: Car[]) => {
+      .subscribe((response: CarApi[]) => {
         this.filteredCARS = response;
         console.log(this.filteredCARS);
       });
   }
 
-  selectCar(_myCar: Car) {
-    this.myCAR = _myCar;
+  selectCar(_myCar: CarApi) {
+    this.tempCar = _myCar;
+    this.myCAR.cityMpg = _myCar.city_Mpg;
+    this.myCAR.combinationMpg = _myCar.combination_Mpg;
+    this.myCAR.fuelType = _myCar.fuel_Type;
+    this.myCAR.highwayMpg = _myCar.highway_Mpg;
+    this.myCAR.class = _myCar.class;
+    this.myCAR.cylinders = _myCar.cylinders;
+    this.myCAR.displacement = _myCar.displacement;
+    this.myCAR.drive = _myCar.drive;
+    this.myCAR.make = _myCar.make;
+    this.myCAR.model = _myCar.model;
+    this.myCAR.sellerId = _myCar.sellerId;
+    this.myCAR.transmission = _myCar.transmission;
+    this.myCAR.year = _myCar.year;
+
     console.log(this.myCAR);
     this.carSelected = true;
   }
 
+  tempCar:CarApi = {} as CarApi
 
   sellCar() {
     this._userService
@@ -56,7 +73,7 @@ export class SellComponent {
         this.myCAR.sellerId = responseID;
         this._carService
           .SellCar(
-            this.myCAR,
+            this.tempCar,
             this.myCAR.color,
             this.myCAR.mileage,
             this.myCAR.image

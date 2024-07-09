@@ -4,11 +4,12 @@ import { Car } from '../../models/car';
 import { AuctionService } from '../../services/auction.service';
 import { Auction } from '../../models/auction';
 import { BidService } from '../../services/bid.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-buy',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './buy.component.html',
   styleUrl: './buy.component.css',
 })
