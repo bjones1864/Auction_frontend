@@ -12,51 +12,75 @@ import { BidService } from '../../services/bid.service';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './car-details.component.html',
-  styleUrl: './car-details.component.css'
+  styleUrl: './car-details.component.css',
 })
 export class CarDetailsComponent {
-  constructor(private _activatedRoute:ActivatedRoute ,
-    private _auctionService:AuctionService,
-    private _userService:UserService,
-    private _bidService:BidService
-  ){}
-  displayAuction:Auction = {} as Auction;
-  id:number=0;
-  currentBid:Bid = {} as Bid;
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _auctionService: AuctionService,
+    private _userService: UserService,
+    private _bidService: BidService
+  ) {}
+  displayAuction: Auction = {} as Auction;
+  id: number = 0;
+  currentBid: Bid = {} as Bid;
+  activeAuction: boolean = false;
+  timeRemaining: number = 0;
 
-  ngOnInit(){
+  ngOnInit() {
     this.getID();
-    if(this.isLoggedIn()){
-    this._userService.isRegistered();}
+    if (this.isLoggedIn()) {
+      this._userService.isRegistered();
+    }
   }
 
-  getID(): void{
+  getID(): void {
     this._activatedRoute.paramMap.subscribe((param) => {
-      this.id = Number(param.get("id"));
-      this._auctionService.getAuctionById(this.id).subscribe((response:Auction)=>{
-      this.displayAuction = response;
-      // console.log(this.displayAuction);
-      })
-    })
-  }
-
-  isLoggedIn():boolean{
-    return this._userService.loggedIn;
-  }
-
-  isRegistered():boolean{
-    return this._userService.registered;
-  }
-
-  AddBid(){
-    this._userService.getIdByEmail(this._userService.user.email).subscribe((response:number)=>{
-      this.currentBid.buyerId = response;
-      this.currentBid.carId = this.displayAuction.carId;
-      this.currentBid.timestamp = new Date();
-      this._bidService.postBid(this.currentBid).subscribe((response)=>{
-        // console.log(response);
-      })
+      this.id = Number(param.get('id'));
+      this._auctionService
+        .getAuctionById(this.id)
+        .subscribe((response: Auction) => {
+          this.displayAuction = response;
+          this.activeAuction = this.isActiveAuction();
+          this.timeRemaining = this.getCountdown();
+          // console.log(this.displayAuction);
+        });
     });
   }
 
+  isActiveAuction(): boolean {
+    console.log(this.displayAuction);
+    return this._auctionService.filterActiveAuction(this.displayAuction);
+  }
+
+  isLoggedIn(): boolean {
+    return this._userService.loggedIn;
+  }
+
+  isRegistered(): boolean {
+    return this._userService.registered;
+  }
+
+  AddBid() {
+    this._userService
+      .getIdByEmail(this._userService.user.email)
+      .subscribe((response: number) => {
+        this.currentBid.buyerId = response;
+        this.currentBid.carId = this.displayAuction.carId;
+        this.currentBid.timestamp = new Date();
+        this._bidService.postBid(this.currentBid).subscribe((response) => {
+          // console.log(response);
+        });
+      });
+  }
+
+  getCountdown(): number {
+    const DateNow = new Date();
+    const DateAuction = new Date(this.displayAuction.endTime);
+    console.log(DateNow.getTime() - DateAuction.getTime());
+    
+    return DateAuction.getTime() - DateNow.getTime();
+    
+
+  }
 }

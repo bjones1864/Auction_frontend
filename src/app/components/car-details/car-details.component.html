@@ -1,4 +1,15 @@
 <h3>Car Details</h3>
+
+@if(!activeAuction){
+<h2 style="color: crimson;">Sorry, this auction has ended!!! </h2>
+}
+
+@else {
+
+<h3>Time Remaining: {{timeRemaining/3600000}}</h3>
+
+}
+
 <ul>
     <li> Make {{displayAuction.car.make}}</li>
     <li> Model {{displayAuction.car.model}}</li>
@@ -17,7 +28,8 @@
     <li> startTime {{displayAuction.startTime}}</li>
     <li> endTime {{displayAuction.endTime}}</li>
 </ul>
-@if(isRegistered()){
+
+@if(isRegistered()&&activeAuction){
     <input type="number" [(ngModel)]="currentBid.bidAmmount">
     <button (click)="AddBid()">Bid</button>
 }

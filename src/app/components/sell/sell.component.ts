@@ -46,10 +46,11 @@ export class SellComponent {
 
   selectCar(_myCar: CarApi) {
     this.tempCar = _myCar;
-    this.myCAR.cityMpg = _myCar.city_Mpg;
-    this.myCAR.combinationMpg = _myCar.combination_Mpg;
-    this.myCAR.fuelType = _myCar.fuel_Type;
-    this.myCAR.highwayMpg = _myCar.highway_Mpg;
+
+    this.myCAR.cityMpg = _myCar.city_mpg;
+    this.myCAR.combinationMpg = _myCar.combination_mpg;
+    this.myCAR.fuelType = _myCar.fuel_type;
+    this.myCAR.highwayMpg = _myCar.highway_mpg;
     this.myCAR.class = _myCar.class;
     this.myCAR.cylinders = _myCar.cylinders;
     this.myCAR.displacement = _myCar.displacement;
@@ -89,4 +90,6 @@ export class SellComponent {
           });
       });
   }
+
+ 
 }
