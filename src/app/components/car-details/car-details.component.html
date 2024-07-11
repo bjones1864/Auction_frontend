@@ -1,46 +1,71 @@
-<h3 style="color:rgb(22, 28, 41)">Car Details</h3>
+<h3 style="color: rgb(22, 28, 41)">Car Details</h3>
 
 @if(!activeAuction){
-<h2 style="color: crimson;">Sorry, this auction has ended!!! </h2>
-}
+<h2 style="color: crimson">Sorry, this auction has ended!!!</h2>
+} @else {
 
-@else {
-
-<h3>Time Remaining: {{timeRemaining/3600000}}</h3>
+<h3>Time Remaining: {{ timeRemaining / 3600000 }}</h3>
 
 }
 
 <ul>
-    <li> Make: {{displayAuction.car.make}}</li>
-    <li> Model: {{displayAuction.car.model}}</li>
-    <li> Year: {{displayAuction.car.year}}</li>  
-    <li> Transmission: {{displayAuction.car.transmission}}</li> 
-    <li> Class: {{displayAuction.car.class}}</li> 
-    <li> Cylinder: {{displayAuction.car.cylinders}}</li>
-    <li> Fuel Type: {{displayAuction.car.fuelType}}</li>
-    <li> Combination_Mpg: {{displayAuction.car.combinationMpg}}</li>
-    <li> City Mpg: {{displayAuction.car.cityMpg}}</li>
-    <li> Highway Mpg: {{displayAuction.car.highwayMpg}}</li>
-    <li> Color: {{displayAuction.car.color}}</li>
-    <li> Drive: {{displayAuction.car.drive}}</li>
-    <li> Displacement: {{displayAuction.car.displacement}}</li>
-    <li> Mileage: {{displayAuction.car.mileage}}</li>
-    <li> StartTime: {{displayAuction.startTime}}</li>
-    <li> EndTime: {{displayAuction.endTime}}</li>
+  <li>Make: {{ displayAuction.car.make }}</li>
+  <li>Model: {{ displayAuction.car.model }}</li>
+  <li>Year: {{ displayAuction.car.year }}</li>
+  <li>Transmission: {{ displayAuction.car.transmission }}</li>
+  <li>Class: {{ displayAuction.car.class }}</li>
+  <li>Cylinder: {{ displayAuction.car.cylinders }}</li>
+  <li>Fuel Type: {{ displayAuction.car.fuelType }}</li>
+  <li>Combination_Mpg: {{ displayAuction.car.combinationMpg }}</li>
+  <li>City Mpg: {{ displayAuction.car.cityMpg }}</li>
+  <li>Highway Mpg: {{ displayAuction.car.highwayMpg }}</li>
+  <li>Color: {{ displayAuction.car.color }}</li>
+  <li>Drive: {{ displayAuction.car.drive }}</li>
+  <li>Displacement: {{ displayAuction.car.displacement }}</li>
+  <li>Mileage: {{ displayAuction.car.mileage }}</li>
+  <li>StartTime: {{ displayAuction.startTime }}</li>
+  <li>EndTime: {{ displayAuction.endTime }}</li>
 </ul>
 
 @if(isRegistered()&&activeAuction){
-    <input type="number" [(ngModel)]="currentBid.bidAmmount">
-    <button (click)="AddBid()">Bid</button>
+<input type="number" [(ngModel)]="currentBid.bidAmmount" />
+<button (click)="AddBid()">Bid</button>
 }
 
-@if(isWinner()){
+<table>
+  <thead>
+    <tr>
+      <th>Buyer ID</th>
+      <th>Buyer Bid Date</th>
+      <th>Buyer Bid Amount</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (b of allBids; track $index) {
+
+    <tr>
+      <td>
+        {{ b.buyerId }}
+      </td>
+      <td>
+        {{ b.timestamp }}
+      </td>
+      <td>
+        {{ b.bidAmmount }}
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+
+@if(winningBid){
 <ul>
-    <li>Name: {{seller.name}}</li>
-    <li>Email: {{seller.email}}</li>
-    <li>Address: {{seller.streetAddress}}</li>
-    <li>City: {{seller.city}}</li>
-    <li>State: {{seller.state}}</li>
-    <li>Zip: {{seller.zip}}</li>
+  <li>Name: {{ seller.name }}</li>
+  <li>Email: {{ seller.email }}</li>
+  <li>Address: {{ seller.streetAddress }}</li>
+  <li>City: {{ seller.city }}</li>
+  <li>State: {{ seller.state }}</li>
+  <li>Zip: {{ seller.zip }}</li>
 </ul>
 }

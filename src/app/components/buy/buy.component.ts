@@ -6,11 +6,12 @@ import { Auction } from '../../models/auction';
 import { BidService } from '../../services/bid.service';
 import { RouterLink } from '@angular/router';
 import { Bid } from '../../models/bid';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-buy',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './buy.component.html',
   styleUrl: './buy.component.css',
 })
@@ -25,6 +26,7 @@ export class BuyComponent {
   allAuctions: Auction[] = [];
   highestBids: { [carId: number]: number } = {};
   auctionStatus: { [carId: number]: string } = {};
+  allStatuses:boolean=true;
 
   ngOnInit() {
     this.getAllAuctions();

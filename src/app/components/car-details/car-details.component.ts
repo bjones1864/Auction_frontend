@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { BootstrapOptions, Component } from '@angular/core';
 import { AuctionService } from '../../services/auction.service';
 import { Auction } from '../../models/auction';
 import { ActivatedRoute } from '@angular/router';
@@ -30,6 +30,7 @@ export class CarDetailsComponent {
   allBids: Bid[] = []; //bid history
   currentUserId:number = 0;
   seller:User = {} as User;
+  winningBid:boolean=false;
 
   ngOnInit() {
     this.getID();
@@ -47,6 +48,7 @@ export class CarDetailsComponent {
           this.displayAuction = response;
           this.activeAuction = this.isActiveAuction();
           this.timeRemaining = this.getCountdown();
+          this.bidHistory();
           // console.log(this.displayAuction);
         });
     });
@@ -70,6 +72,8 @@ export class CarDetailsComponent {
       .getBid(this.displayAuction.carId)
       .subscribe((response: Bid[]) => {
         this.allBids = response;
+        console.log(this.allBids);
+        this.isWinner();
       });
   }
 
@@ -93,19 +97,25 @@ export class CarDetailsComponent {
     return DateAuction.getTime() - DateNow.getTime();
   }
 
-  isWinner(): boolean {
+  isWinner(): void {
+    console.log("is winner");
+    this.maxBid();
     if (this.isActiveAuction()) {
-      return false;
+      this.winningBid = false; 
     } else {
       if (this.allBids.length == 0) {
-        return false;
+        this.winningBid = false;
       } else {
         let maxBidder:Bid = this.maxBid();
         this._userService.getIdByEmail(this._userService.user.email).subscribe((response)=>{
         this.currentUserId = response;
         this.sellerInfo();
+        console.log(maxBidder.buyerId );
+        console.log(this.currentUserId);
+        console.log(maxBidder.buyerId == this.currentUserId);
+        this.winningBid = maxBidder.buyerId == this.currentUserId;
         });
-        return maxBidder.buyerId == this.currentUserId;
+     
       }
     }
   }
@@ -117,7 +127,9 @@ export class CarDetailsComponent {
   }
 
   maxBid():Bid{
+    console.log(this.allBids.reduce((prev, current) => (current.bidAmmount > prev.bidAmmount) ? current : prev))
     return this.allBids.reduce((prev, current) => (current.bidAmmount > prev.bidAmmount) ? current : prev)
+    
   }
 
 

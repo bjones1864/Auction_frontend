@@ -1,5 +1,13 @@
 <h2 style = "color:rgb(22, 28, 41)">Car Auctions</h2>
 
+
+
+<input type="radio" id="active" name="fav_language" [value]=false [(ngModel)]="allStatuses" >
+<label for="active">Active</label><br>
+
+<input type="radio" id="all" name="fav_language" [value]=true [(ngModel)]="allStatuses" >
+<label for="all">All</label><br>
+
 <table>
   <thead>
     <tr>
@@ -16,7 +24,8 @@
 
   <tbody>
     @for (c of allAuctions; track $index) {
-    <tr>
+    @if((auctionStatus[c.carId]=="Active")||allStatuses){
+      <tr>
         <th>{{c.car.make}}</th>
         <th>{{c.car.model}}</th>
         <th>{{c.car.year}}</th>
@@ -27,6 +36,7 @@
         <th><button [routerLink]="['/',c.id]" >Details</button></th>
     </tr>
     }
+  }
   </tbody>
 
 </table>
