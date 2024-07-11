@@ -31,7 +31,7 @@ export class AuctionService {
     const DateNow = new Date();
     const DateAuction = new Date(A.endTime);
     //console.log(DateNow.getTime() - DateAuction.getTime());
-    console.log(DateNow < DateAuction);
+    // console.log(DateNow < DateAuction);
     return DateNow < DateAuction;
   }
   

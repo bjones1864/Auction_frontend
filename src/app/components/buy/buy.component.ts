@@ -5,6 +5,7 @@ import { AuctionService } from '../../services/auction.service';
 import { Auction } from '../../models/auction';
 import { BidService } from '../../services/bid.service';
 import { RouterLink } from '@angular/router';
+import { Bid } from '../../models/bid';
 
 @Component({
   selector: 'app-buy',
@@ -17,12 +18,13 @@ export class BuyComponent {
   constructor(
     private _carService: CarService,
     private _auctionService: AuctionService,
-    private _bidService:BidService
+    private _bidService: BidService
   ) {}
 
   allCars: Car[] = [];
   allAuctions: Auction[] = [];
   highestBids: { [carId: number]: number } = {};
+  auctionStatus: { [carId: number]: string } = {};
 
   ngOnInit() {
     this.getAllAuctions();
@@ -51,10 +53,25 @@ export class BuyComponent {
   // }
 
   fetchHighestBids() {
-    this.allAuctions.forEach(auction => {
-      this._bidService.getHighestBid(auction.carId).subscribe((response: number) => {
-        this.highestBids[auction.carId] = response;
-      });
+    this.allAuctions.forEach((auction) => {
+      this._bidService
+        .getHighestBid(auction.carId)
+        .subscribe((response: number) => {
+          this.highestBids[auction.carId] = response;
+
+          //getting auction status
+          this.allAuctions.forEach((auction) => {
+            if (this._auctionService.filterActiveAuction(auction)) {
+              this.auctionStatus[auction.carId] = 'Active';
+            } else if (auction.startingBid == this.highestBids[auction.carId]) {
+              this.auctionStatus[auction.carId] = 'Elapsed';
+            } else {
+              this.auctionStatus[auction.carId] = 'Sold';
+            }
+          });
+
+          
+        });
     });
   }
 

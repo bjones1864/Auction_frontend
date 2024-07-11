@@ -45,6 +45,10 @@ export class UserService {
     );
   }
 
+  getUserById(id:number):Observable<User>{
+    return this.http.get<User>(`${this.url}/api/User/getUserById?id=${id}`)
+  }
+
   isRegistered() {
     this.getIdByEmail(this.user.email).subscribe((response: number) => {
       if (response != null) {

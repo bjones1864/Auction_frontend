@@ -6,11 +6,12 @@ import { CarService } from '../../services/car.service';
 import { Auction } from '../../models/auction';
 import { AuctionService } from '../../services/auction.service';
 import { CarApi } from '../../models/car-api';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sell',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLink],
   templateUrl: './sell.component.html',
   styleUrl: './sell.component.css',
 })

@@ -9,6 +9,7 @@
       <th>Color</th>
       <th>Current Bid</th>
       <th>End Date</th>
+      <th>Status</th>
       <th></th>
     </tr>
   </thead>
@@ -22,6 +23,7 @@
         <th>{{c.car.color}}</th>
         <th>{{ highestBids[c.carId]}}</th>
         <th>{{c.endTime}}</th>
+        <th>{{auctionStatus[c.carId]}}</th>
         <th><button [routerLink]="['/',c.id]" >Details</button></th>
     </tr>
     }

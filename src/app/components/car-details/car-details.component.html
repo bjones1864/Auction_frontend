@@ -33,3 +33,14 @@
     <input type="number" [(ngModel)]="currentBid.bidAmmount">
     <button (click)="AddBid()">Bid</button>
 }
+
+@if(isWinner()){
+<ul>
+    <li>Name: {{seller.name}}</li>
+    <li>Email: {{seller.email}}</li>
+    <li>Address: {{seller.streetAddress}}</li>
+    <li>City: {{seller.city}}</li>
+    <li>State: {{seller.state}}</li>
+    <li>Zip: {{seller.zip}}</li>
+</ul>
+}

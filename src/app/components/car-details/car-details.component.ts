@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { Bid } from '../../models/bid';
 import { FormsModule } from '@angular/forms';
 import { BidService } from '../../services/bid.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-car-details',
@@ -26,6 +27,9 @@ export class CarDetailsComponent {
   currentBid: Bid = {} as Bid;
   activeAuction: boolean = false;
   timeRemaining: number = 0;
+  allBids: Bid[] = []; //bid history
+  currentUserId:number = 0;
+  seller:User = {} as User;
 
   ngOnInit() {
     this.getID();
@@ -61,6 +65,14 @@ export class CarDetailsComponent {
     return this._userService.registered;
   }
 
+  bidHistory(): void {
+    this._bidService
+      .getBid(this.displayAuction.carId)
+      .subscribe((response: Bid[]) => {
+        this.allBids = response;
+      });
+  }
+
   AddBid() {
     this._userService
       .getIdByEmail(this._userService.user.email)
@@ -78,9 +90,35 @@ export class CarDetailsComponent {
     const DateNow = new Date();
     const DateAuction = new Date(this.displayAuction.endTime);
     console.log(DateNow.getTime() - DateAuction.getTime());
-    
     return DateAuction.getTime() - DateNow.getTime();
-    
-
   }
+
+  isWinner(): boolean {
+    if (this.isActiveAuction()) {
+      return false;
+    } else {
+      if (this.allBids.length == 0) {
+        return false;
+      } else {
+        let maxBidder:Bid = this.maxBid();
+        this._userService.getIdByEmail(this._userService.user.email).subscribe((response)=>{
+        this.currentUserId = response;
+        this.sellerInfo();
+        });
+        return maxBidder.buyerId == this.currentUserId;
+      }
+    }
+  }
+
+  sellerInfo(){
+    this._userService.getUserById(this.displayAuction.sellerId).subscribe((response)=>{
+      this.seller = response;
+    })
+  }
+
+  maxBid():Bid{
+    return this.allBids.reduce((prev, current) => (current.bidAmmount > prev.bidAmmount) ? current : prev)
+  }
+
+
 }
