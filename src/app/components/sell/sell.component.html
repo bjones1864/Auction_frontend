@@ -1,10 +1,12 @@
 <h3>Sell Car</h3>
 
 @if(isLoggedIn())
-{
-    <input type="text" [(ngModel)]="formMake" required placeholder="Car Make">
-    <input type="text" [(ngModel)]="formModel" required placeholder="Car Model">
-    <input type="text" [(ngModel)]="formYear" required placeholder="Car Year">
+{   <div> <label for="makeInput">Make</label> </div>
+    <input type="text" id="makeInput" [(ngModel)]="formMake" required placeholder="enter car make">
+    <div><label for="modelInput">Model</label></div>
+    <input type="text" id="modelInput" [(ngModel)]="formModel" required placeholder="enter car model">
+    <div><label for="yearInput">Year</label></div>
+    <input type="text" id="yearInput" [(ngModel)]="formYear" required placeholder="enter car year">
     <button (click)="formSubmit()" >Submit</button>
 }
 

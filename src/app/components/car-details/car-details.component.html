@@ -1,4 +1,4 @@
-<h3>Car Details</h3>
+<h3 style="color:rgb(22, 28, 41)">Car Details</h3>
 
 @if(!activeAuction){
 <h2 style="color: crimson;">Sorry, this auction has ended!!! </h2>
@@ -11,22 +11,22 @@
 }
 
 <ul>
-    <li> Make {{displayAuction.car.make}}</li>
-    <li> Model {{displayAuction.car.model}}</li>
-    <li> Year {{displayAuction.car.year}}</li>  
-    <li> transmission {{displayAuction.car.transmission}}</li> 
-    <li> class {{displayAuction.car.class}}</li> 
-    <li> cylinder {{displayAuction.car.cylinders}}</li>
-    <li> fuel_Type {{displayAuction.car.fuelType}}</li>
-    <li> combination_Mpg {{displayAuction.car.combinationMpg}}</li>
-    <li> city_Mpg {{displayAuction.car.cityMpg}}</li>
-    <li> highway_Mpg {{displayAuction.car.highwayMpg}}</li>
-    <li> color {{displayAuction.car.color}}</li>
-    <li> drive {{displayAuction.car.drive}}</li>
-    <li> displacement {{displayAuction.car.displacement}}</li>
-    <li> mileage {{displayAuction.car.mileage}}</li>
-    <li> startTime {{displayAuction.startTime}}</li>
-    <li> endTime {{displayAuction.endTime}}</li>
+    <li> Make: {{displayAuction.car.make}}</li>
+    <li> Model: {{displayAuction.car.model}}</li>
+    <li> Year: {{displayAuction.car.year}}</li>  
+    <li> Transmission: {{displayAuction.car.transmission}}</li> 
+    <li> Class: {{displayAuction.car.class}}</li> 
+    <li> Cylinder: {{displayAuction.car.cylinders}}</li>
+    <li> Fuel Type: {{displayAuction.car.fuelType}}</li>
+    <li> Combination_Mpg: {{displayAuction.car.combinationMpg}}</li>
+    <li> City Mpg: {{displayAuction.car.cityMpg}}</li>
+    <li> Highway Mpg: {{displayAuction.car.highwayMpg}}</li>
+    <li> Color: {{displayAuction.car.color}}</li>
+    <li> Drive: {{displayAuction.car.drive}}</li>
+    <li> Displacement: {{displayAuction.car.displacement}}</li>
+    <li> Mileage: {{displayAuction.car.mileage}}</li>
+    <li> StartTime: {{displayAuction.startTime}}</li>
+    <li> EndTime: {{displayAuction.endTime}}</li>
 </ul>
 
 @if(isRegistered()&&activeAuction){
