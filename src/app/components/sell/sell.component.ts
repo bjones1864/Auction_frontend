@@ -6,12 +6,12 @@ import { CarService } from '../../services/car.service';
 import { Auction } from '../../models/auction';
 import { AuctionService } from '../../services/auction.service';
 import { CarApi } from '../../models/car-api';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sell',
   standalone: true,
-  imports: [FormsModule,RouterLink],
+  imports: [FormsModule, RouterLink],
   templateUrl: './sell.component.html',
   styleUrl: './sell.component.css',
 })
@@ -19,7 +19,8 @@ export class SellComponent {
   constructor(
     private _userService: UserService,
     private _carService: CarService,
-    private _auctionService: AuctionService
+    private _auctionService: AuctionService,
+    private router: Router
   ) {}
   formModel: string = '';
   formMake: string = '';
@@ -66,7 +67,7 @@ export class SellComponent {
     this.carSelected = true;
   }
 
-  tempCar:CarApi = {} as CarApi
+  tempCar: CarApi = {} as CarApi;
 
   sellCar() {
     this._userService
@@ -83,14 +84,18 @@ export class SellComponent {
           .subscribe((response: Car) => {
             console.log(this.myCAR);
             console.log(response);
-            this.myAUCTION.carId=response.id
-            this.myAUCTION.sellerId=responseID
-            this._auctionService.postAuction(this.myAUCTION).subscribe((responseAuction:Auction)=>{
-              console.log(responseAuction);
-            })
+            this.myAUCTION.carId = response.id;
+            this.myAUCTION.sellerId = responseID;
+            this._auctionService
+              .postAuction(this.myAUCTION)
+              .subscribe((responseAuction: Auction) => {
+                console.log(responseAuction);
+                this.refreshAndRedirect();
+              });
           });
       });
   }
-
- 
+  refreshAndRedirect(): void {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {});
+  }
 }

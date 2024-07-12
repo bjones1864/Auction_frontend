@@ -4,7 +4,7 @@
 <h2 style="color: crimson">Sorry, this auction has ended!!!</h2>
 } @else {
 
-<h3>Time Remaining: {{ timeRemaining / 3600000 }}</h3>
+
 
 }
 
@@ -25,6 +25,8 @@
   <li>Mileage: {{ displayAuction.car.mileage }}</li>
   <li>StartTime: {{ displayAuction.startTime }}</li>
   <li>EndTime: {{ displayAuction.endTime }}</li>
+  <li><img src="{{displayAuction.car.image}}" ></li>
+  <li>Distance: {{distance}}</li>
 </ul>
 
 @if(isRegistered()&&activeAuction){
@@ -69,3 +71,7 @@
   <li>Zip: {{ seller.zip }}</li>
 </ul>
 }
+
+
+<app-timer [timeRemaining]="getCountdown()" >Timer</app-timer>
+

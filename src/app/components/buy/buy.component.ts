@@ -29,15 +29,11 @@ export class BuyComponent {
   allStatuses:boolean=true;
 
   ngOnInit() {
+    
     this.getAllAuctions();
   }
 
-  // getAllCars() {
-  //   this._carService.getAllCars().subscribe((response: Car[]) => {
-  //     // console.log(response);
-  //     this.allCars = response;
-  //   });
-  // }
+ 
 
   getAllAuctions() {
     this._auctionService.getAllAuctions().subscribe((response: Auction[]) => {
@@ -47,12 +43,7 @@ export class BuyComponent {
     });
   }
 
-  // getHighestBid(id:number){
-  //   this._bidService.getHighestBid(id).subscribe((response:number)=>{
-  //     console.log(response)
-  //     return response;
-  //   })
-  // }
+  
 
   fetchHighestBids() {
     this.allAuctions.forEach((auction) => {

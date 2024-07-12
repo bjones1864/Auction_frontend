@@ -67,9 +67,16 @@
     <input type="datetime-local" [(ngModel)]="myAUCTION.startTime" placeholder="start time">
     <input type="datetime-local" [(ngModel)]="myAUCTION.endTime" placeholder="end time">
 
-<button (click)="sellCar()" [routerLink]="'/'"> Save </button>
+<button (click)="sellCar()" > Save </button>
 
 </div>
+<!-- 
+<label class="image-upload-container btn btn-bwm">
+    <span>Select Image</span>
+    <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
+  </label> -->
+
+
 }
 
 
