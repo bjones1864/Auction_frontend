@@ -1,7 +1,7 @@
 import { BootstrapOptions, Component } from '@angular/core';
 import { AuctionService } from '../../services/auction.service';
 import { Auction } from '../../models/auction';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { Bid } from '../../models/bid';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ import { DistanceService } from '../../services/distance.service';
 @Component({
   selector: 'app-car-details',
   standalone: true,
-  imports: [FormsModule, CountdownTimerComponent],
+  imports: [FormsModule, CountdownTimerComponent, RouterLink],
   templateUrl: './car-details.component.html',
   styleUrl: './car-details.component.css',
 })
@@ -26,6 +26,7 @@ export class CarDetailsComponent {
     private _bidService: BidService,
     private _distance: DistanceService
   ) {}
+
   displayAuction: Auction = {} as Auction;
   id: number = 0;
   currentBid: Bid = {} as Bid;
@@ -36,12 +37,14 @@ export class CarDetailsComponent {
   currentUser = {} as User;
   seller: User = {} as User;
   winningBid: boolean = false;
-  distance: number = 0;
+  distance: number = 5;
+  currentHighBid: number = 0; //max bid until now
 
   ngOnInit() {
     this.getID();
     if (this.isLoggedIn()) {
       this._userService.isRegistered();
+      this.currentBid.bidAmmount = 0;
     }
   }
 
@@ -61,7 +64,7 @@ export class CarDetailsComponent {
   }
 
   isActiveAuction(): boolean {
-    console.log(this.displayAuction);
+    // console.log(this.displayAuction);
     return this._auctionService.filterActiveAuction(this.displayAuction);
   }
 
@@ -96,59 +99,79 @@ export class CarDetailsComponent {
       });
   }
 
-  getCountdown(): number {
-    const DateNow = new Date();
-    const DateAuction = new Date(this.displayAuction.endTime);
-    // console.log(DateNow.getTime() - DateAuction.getTime());
-    return DateAuction.getTime() - DateNow.getTime();
-  }
-
-  isWinner(): void {
-    console.log('is winner');
-    this.maxBid();
-    if (this.isActiveAuction()) {
-      this.winningBid = false;
-    } else {
-      if (this.allBids.length == 0) {
-        this.winningBid = false;
-      } else {
-        let maxBidder: Bid = this.maxBid();
-        this._userService
-          .getIdByEmail(this._userService.user.email)
-          .subscribe((response) => {
-            this.currentUserId = response;
-            this.sellerInfo();
-            //console.log(maxBidder.buyerId );
-            //console.log(this.currentUserId);
-            //console.log(maxBidder.buyerId == this.currentUserId);
-            this.winningBid = maxBidder.buyerId == this.currentUserId;
-          });
-      }
-    }
-  }
-
   sellerInfo() {
     this._userService
       .getUserById(this.displayAuction.sellerId)
       .subscribe((response) => {
         this.seller = response;
         this.getDistance();
+        console.log('seller method');
+      });
+  }
+
+  isWinner(): void {
+    console.log('is winner');
+    console.log(this.maxBid());
+    let maxBidder: Bid = this.maxBid();
+    this.currentHighBid = maxBidder.bidAmmount;
+    console.log(this.currentHighBid);
+    if (this.isActiveAuction()) {
+      this.winningBid = false;
+      this.getminbid();
+    } else {
+      if (this.allBids.length == 0) {
+        this.winningBid = false;
+      } else {
+        this.getminbid(); //works only for active auctions
+        this._userService
+          .getIdByEmail(this._userService.user.email)
+          .subscribe((response) => {
+            this.currentUserId = response;
+            this.sellerInfo();
+            this.winningBid = maxBidder.buyerId == this.currentUserId;
+            return;
+          });
+      }
+    }
+    this._userService
+      .getIdByEmail(this._userService.user.email)
+      .subscribe((response) => {
+        this.currentUserId = response;
+        this.sellerInfo();
       });
   }
 
   maxBid(): Bid {
-    console.log(
-      this.allBids.reduce((prev, current) =>
+    if (this.allBids.length == 0) {
+      let sellerBid: Bid = {} as Bid;
+      sellerBid.bidAmmount = this.displayAuction.startingBid;
+      // console.log(sellerBid);
+      return sellerBid;
+    } else { 
+      // console.log(
+      //   this.allBids.reduce((prev, current) =>
+      //     current.bidAmmount > prev.bidAmmount ? current : prev
+      //   )
+      // );
+      return this.allBids.reduce((prev, current) =>
         current.bidAmmount > prev.bidAmmount ? current : prev
-      )
-    );
-    return this.allBids.reduce((prev, current) =>
-      current.bidAmmount > prev.bidAmmount ? current : prev
-    );
+      );
+    }
+  }
+
+  getminbid(): void {
+    if (this.currentHighBid == 0) {
+      console.log(this.displayAuction.startingBid + 50);
+      this.currentHighBid = this.displayAuction.startingBid + 50;
+    } else {
+      console.log(this.displayAuction.startingBid + 50);
+      this.currentHighBid = this.currentHighBid + 50;
+    }
   }
 
   //getUserById
   getDistance(): void {
+    console.log('distance method');
     this._userService
       .getUserById(this.currentUserId)
       .subscribe((response: User) => {
@@ -161,8 +184,8 @@ export class CarDetailsComponent {
           .subscribe((response: Distance) => {
             console.log(parseInt(this.seller.zip));
             console.log(parseInt(this.currentUser.zip));
-           console.log(response);
-          
+            //  console.log(response);
+
             this.distance = response.distance;
           });
       });

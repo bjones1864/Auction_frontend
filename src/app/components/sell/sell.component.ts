@@ -30,7 +30,7 @@ export class SellComponent {
   filteredCARS: CarApi[] = [];
   myCAR: Car = {} as Car;
   myAUCTION: Auction = {} as Auction;
-
+  tempCar: CarApi = {} as CarApi;
   carSelected: boolean = false;
 
   isLoggedIn(): boolean {
@@ -48,7 +48,6 @@ export class SellComponent {
 
   selectCar(_myCar: CarApi) {
     this.tempCar = _myCar;
-
     this.myCAR.cityMpg = _myCar.city_mpg;
     this.myCAR.combinationMpg = _myCar.combination_mpg;
     this.myCAR.fuelType = _myCar.fuel_type;
@@ -63,17 +62,21 @@ export class SellComponent {
     this.myCAR.transmission = _myCar.transmission;
     this.myCAR.year = _myCar.year;
 
-    console.log(this.myCAR);
+    this._userService
+      .getIdByEmail(this._userService.user.email)
+      .subscribe((responseID: number) => {
+        this.tempCar.sellerId = responseID;
+        this.myCAR.sellerId = responseID;
+        // console.log(responseID);
+      })
+    //  console.log(this.myCAR);
     this.carSelected = true;
   }
-
-  tempCar: CarApi = {} as CarApi;
 
   sellCar() {
     this._userService
       .getIdByEmail(this._userService.user.email)
       .subscribe((responseID: number) => {
-        this.myCAR.sellerId = responseID;
         this._carService
           .SellCar(
             this.tempCar,
@@ -82,14 +85,16 @@ export class SellComponent {
             this.myCAR.image
           )
           .subscribe((response: Car) => {
-            console.log(this.myCAR);
-            console.log(response);
+            // console.log(this.myCAR);
+            // console.log(this.tempCar);
+
             this.myAUCTION.carId = response.id;
             this.myAUCTION.sellerId = responseID;
             this._auctionService
               .postAuction(this.myAUCTION)
               .subscribe((responseAuction: Auction) => {
                 console.log(responseAuction);
+                // console.log()
                 this.refreshAndRedirect();
               });
           });

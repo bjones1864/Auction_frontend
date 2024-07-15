@@ -2,10 +2,6 @@
 
 @if(!activeAuction){
 <h2 style="color: crimson">Sorry, this auction has ended!!!</h2>
-} @else {
-
-
-
 }
 
 <ul>
@@ -27,11 +23,14 @@
   <li>EndTime: {{ displayAuction.endTime }}</li>
   <li><img src="{{displayAuction.car.image}}" ></li>
   <li>Distance: {{distance}}</li>
+  <!-- <li>Seller Id: {{displayAuction.sellerId}}</li> -->
 </ul>
 
-@if(isRegistered()&&activeAuction){
-<input type="number" [(ngModel)]="currentBid.bidAmmount" />
-<button (click)="AddBid()">Bid</button>
+@if(isRegistered()&&activeAuction && (displayAuction.sellerId!=currentUserId)){
+<input type="number" [(ngModel)]="currentBid.bidAmmount" [min]="currentHighBid" />
+<button (click)="AddBid()" [routerLink]="'/'"  [disabled]="this.currentBid.bidAmmount<currentHighBid">Bid</button>
+@if(this.currentBid.bidAmmount<currentHighBid){
+<p> Value must be greater than {{currentHighBid}}</p>}
 }
 
 <table>
@@ -72,6 +71,6 @@
 </ul>
 }
 
-
-<app-timer [timeRemaining]="getCountdown()" >Timer</app-timer>
+@if(isActiveAuction()){
+  <app-timer [timeRemaining]=this.displayAuction.endTime >Timer</app-timer>}
 

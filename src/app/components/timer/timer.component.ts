@@ -17,7 +17,7 @@ export class CountdownTimerComponent implements OnInit, OnDestroy {
   public minutes: number = 0;
   public hours: number = 0;
   public days: number = 0;
-  @Input() timeRemaining: number = 0;
+  @Input() timeRemaining: Date={} as Date;
 
   ngOnInit() {
     this.subscription = interval(1000).subscribe((x) => {
@@ -26,10 +26,12 @@ export class CountdownTimerComponent implements OnInit, OnDestroy {
   }
 
   private getTimeDifference() {
-    //this.timeDifference = this.dDay.getTime() - new Date().getTime();
-    this.allocateTimeUnits(this.timeRemaining);
-    //console.log(this.timeRemaining);
+    const DateNow = new Date();
+    const DateAuction = new Date(this.timeRemaining);
+    // console.log(DateNow.getTime() - DateAuction.getTime());
+    this.allocateTimeUnits(DateAuction.getTime() - DateNow.getTime());
   }
+
   private allocateTimeUnits(timeDifference: number) {
     this.seconds = Math.floor((timeDifference / 1000) % 60);
     this.minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
