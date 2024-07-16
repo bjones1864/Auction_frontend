@@ -1,74 +1,115 @@
-<h3>Sell Car</h3>
+<h3 class="text-center">Sell Car</h3>
 
-@if(isLoggedIn())
-{   <div> <label for="makeInput">Make</label> </div>
-    <input type="text" id="makeInput" [(ngModel)]="formMake" required placeholder="enter car make">
-    <div><label for="modelInput">Model</label></div>
-    <input type="text" id="modelInput" [(ngModel)]="formModel" required placeholder="enter car model">
-    <div><label for="yearInput">Year</label></div>
-    <input type="text" id="yearInput" [(ngModel)]="formYear" required placeholder="enter car year">
-    <button (click)="formSubmit()" >Submit</button>
+@if(isLoggedIn()) {
+<div><label for="makeInput">Make</label></div>
+<input
+  type="text"
+  id="makeInput"
+  [(ngModel)]="formMake"
+  required
+  placeholder="enter car make"
+/>
+<div><label for="modelInput">Model</label></div>
+<input
+  type="text"
+  id="modelInput"
+  [(ngModel)]="formModel"
+  required
+  placeholder="enter car model"
+/>
+<div><label for="yearInput">Year</label></div>
+<input
+  type="text"
+  id="yearInput"
+  [(ngModel)]="formYear"
+  required
+  placeholder="enter car year"
+/>
+<button class="btn btn-warning mx-2" (click)="formSubmit()">Submit</button>
 }
 
+<table class="table col-10">
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th colspan="2">Model</th>
+      <th>Year</th>
+      <th>City MPG</th>
+      <th>Hwy MPG</th>
+      <th>Combined MPG</th>
+      <th>Class</th>
+      <th>Cylinders</th>
+      <th>Disp.</th>
+      <th>Drive</th>
+      <th>Fuel</th>
+      <th>Trans.</th>
+    </tr>
+  </thead>
 
-
-<table>
-    <thead>
-<tr>
-
-<th>Make</th>
-<th>Model</th>
-<th>Year</th>
-<th>City MPG</th>
-<th>Highway MPG</th>
-<th>Combined MPG</th>
-<th>Class</th>
-<th>Cylinders</th>
-<th>Displacement</th>
-<th>Drive</th>
-<th>Fuel Type</th>
-<th>Transmission</th>
-
-
-</tr>
-</thead>
-
-
-@for(f of filteredCARS;track $index){
-<tr>
-    <td>{{f.make}} </td>
-    <td>{{f.model}} </td>
-    <td>{{f.year}} </td>
-    <td>{{f.city_mpg}} </td>
-    <td>{{f.highway_mpg}} </td>
-    <td>{{f.combination_mpg}} </td>
-    <td>{{f.class}} </td>
-    <td>{{f.cylinders}} </td>
-    <td>{{f.displacement}} </td>
-    <td>{{f.drive}} </td>
-    <td>{{f.fuel_type}} </td>
-    <td>{{f.transmission}} </td>
-    <button (click)="selectCar(f)">Select this Car</button>
-</tr>
-}
-
-
+  <tbody>
+    @for(f of filteredCARS;track $index){
+    <tr>
+      <td class="text-capitalize">{{ f.make }}</td>
+      <td colspan="2" class="text-capitalize">{{ f.model }}</td>
+      <td>{{ f.year }}</td>
+      <td>{{ f.city_mpg }}</td>
+      <td>{{ f.highway_mpg }}</td>
+      <td>{{ f.combination_mpg }}</td>
+      <td>{{ f.class }}</td>
+      <td>{{ f.cylinders }}</td>
+      <td>{{ f.displacement }}</td>
+      <td>{{ f.drive }}</td>
+      <td>{{ f.fuel_type }}</td>
+      <td>{{ f.transmission }}</td>
+      <button class="btn btn-outline-dark" (click)="selectCar(f)">
+        Select
+      </button>
+    </tr>
+    }
+  </tbody>
 </table>
 
 @if(carSelected){
 
 <div>
+  <input
+    type="text"
+    [(ngModel)]="myCAR.color"
+    required
+    placeholder="Car Color"
+  />
+  <input
+    type="number"
+    [(ngModel)]="myCAR.mileage"
+    required
+    placeholder="Car Mileage"
+  />
+  <input
+    type="text"
+    [(ngModel)]="myCAR.image"
+    required
+    placeholder="Car Image"
+  />
+  <input
+    type="number"
+    [(ngModel)]="myAUCTION.startingBid"
+    required
+    placeholder="starting bid"
+  />
+  <input
+    type="datetime-local"
+    [(ngModel)]="myAUCTION.startTime"
+    required
+    placeholder="start time"
+  />
+  <input
+    type="datetime-local"
+    [(ngModel)]="myAUCTION.endTime"
+    required
+    placeholder="end time"
+  />
 
-
-    <input type="text" [(ngModel)]="myCAR.color" required placeholder="Car Color">
-    <input type="number" [(ngModel)]="myCAR.mileage" required placeholder="Car Mileage">
-    <input type="text" [(ngModel)]="myCAR.image" required placeholder="Car Image">
-    <input type="number" [(ngModel)]="myAUCTION.startingBid" required placeholder="starting bid">
-    <input type="datetime-local" [(ngModel)]="myAUCTION.startTime" required placeholder="start time">
-    <input type="datetime-local" [(ngModel)]="myAUCTION.endTime" required placeholder="end time">
-
-<button (click)="sellCar()" > Save </button>
-
+  <button (click)="sellCar()">Save</button>
 </div>
 <!-- 
 <label class="image-upload-container btn btn-bwm">
@@ -76,12 +117,4 @@
     <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
   </label> -->
 
-
 }
-
-
-
-
-
-
-

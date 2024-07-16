@@ -1,11 +1,12 @@
 <h3 class="text-center mt-3 mb-2" >Car Details</h3>
 @if(isActiveAuction()){
   <app-timer [timeRemaining]=this.displayAuction.endTime >Timer</app-timer>}
-  @if(!activeAuction){
-    <h2 style="color: crimson">Sorry, this auction has ended!!!</h2>
-    }
 
-<div class="row">
+    @if(!activeAuction){
+      <h2 class="text-center text-danger mb-4">Sorry, this auction has ended!!!</h2>
+      }
+
+<div class="row mb-5">
 <div class="offset-1 col-4">
 <ul class="list-group">
   <li class="list-group-item">Make: {{ displayAuction.car.make }}</li>
@@ -31,20 +32,21 @@
 
 </div>
 
-<div class="offset-2 col-4">
+<div class="offset-2 col-5">
 <img class="rounded img-fluid" src="{{displayAuction.car.image}}"  >
 <p>Distance from seller: {{distance}} miles</p>
 <p><b>Auction Start Time:</b> {{ displayAuction.startTime|date:'medium' }}</p>
-<p><b>Auction End Time:</b> {{ displayAuction.endTime|date:'medium' }}</p>
+<p><b>Auction End Time:  </b> {{ displayAuction.endTime|date:'medium' }}</p>
 
 @if(isRegistered()&&activeAuction && (displayAuction.sellerId!=currentUserId)){
-<input type="number" [(ngModel)]="currentBid.bidAmmount" [min]="currentHighBid" />
-<button (click)="AddBid()" [routerLink]="'/'"  [disabled]="this.currentBid.bidAmmount<currentHighBid">Bid</button>
+<input type="number" [(ngModel)]="currentBid.bidAmmount" [min]="currentHighBid" placeholder="Enter Bid Amount"/>
+<button class="btn btn-success px-2 mx-2" (click)="AddBid()" [routerLink]="'/'"  [disabled]="this.currentBid.bidAmmount<currentHighBid">Submit Bid</button>
 @if(this.currentBid.bidAmmount<currentHighBid){
 <p> Value must be greater than {{currentHighBid}}</p>}
 }
 
-<table>
+<h5 class="text-center">Bid History</h5>
+<table class="w-100 text-center border table rounded">
   <thead>
     <tr>
       <th>Buyer ID</th>
@@ -61,10 +63,10 @@
         {{ b.buyerId }}
       </td>
       <td>
-        {{ b.timestamp }}
+        {{ b.timestamp | date:'medium'  }}
       </td>
       <td>
-        {{ b.bidAmmount }}
+        {{ b.bidAmmount | currency: 'USD' : 'symbol' : '1.0-0' }}
       </td>
     </tr>
     }
