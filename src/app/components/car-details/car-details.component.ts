@@ -10,11 +10,12 @@ import { User } from '../../models/user';
 import { CountdownTimerComponent } from '../timer/timer.component';
 import { Distance } from '../../models/distance';
 import { DistanceService } from '../../services/distance.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-car-details',
   standalone: true,
-  imports: [FormsModule, CountdownTimerComponent, RouterLink],
+  imports: [FormsModule, CountdownTimerComponent, RouterLink,DatePipe],
   templateUrl: './car-details.component.html',
   styleUrl: './car-details.component.css',
 })

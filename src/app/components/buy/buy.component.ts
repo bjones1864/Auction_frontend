@@ -7,11 +7,12 @@ import { BidService } from '../../services/bid.service';
 import { RouterLink } from '@angular/router';
 import { Bid } from '../../models/bid';
 import { FormsModule } from '@angular/forms';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-buy',
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, CurrencyPipe, DatePipe,CommonModule],
   templateUrl: './buy.component.html',
   styleUrl: './buy.component.css',
 })
@@ -26,14 +27,16 @@ export class BuyComponent {
   allAuctions: Auction[] = [];
   highestBids: { [carId: number]: number } = {};
   auctionStatus: { [carId: number]: string } = {};
-  allStatuses:boolean=true;
+  allStatuses: boolean = true;
+  statusClasses: { [key: string]: string } = {
+    Active: 'text-success',
+    Sold: 'text-black',
+    Elapsed: 'text-danger',
+  };
 
   ngOnInit() {
-    
     this.getAllAuctions();
   }
-
- 
 
   getAllAuctions() {
     this._auctionService.getAllAuctions().subscribe((response: Auction[]) => {
@@ -42,8 +45,6 @@ export class BuyComponent {
       this.fetchHighestBids();
     });
   }
-
-  
 
   fetchHighestBids() {
     this.allAuctions.forEach((auction) => {
@@ -62,10 +63,7 @@ export class BuyComponent {
               this.auctionStatus[auction.carId] = 'Sold';
             }
           });
-
-          
         });
     });
   }
-
 }

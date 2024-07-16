@@ -1,7 +1,20 @@
 
-<div class="countdown-timer">
-  <div class="time-unit">{{ days }} <span>Days</span></div>
-  <div class="time-unit">{{ hours }} <span>Hours</span></div>
-  <div class="time-unit">{{ minutes }} <span>Minutes</span></div>
-  <div class="time-unit">{{ seconds }} <span>Seconds</span></div>
-</div>
+<table class="text-center border mx-auto">
+  <thead class="tlabel">
+    <tr>
+      <th>Days</th>
+      <th>Hrs</th>
+      <th>Mins</th>
+      <th>Secs</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>{{ days }}</td>
+      <td>{{ hours }}</td>
+      <td>{{ minutes }}</td>
+      <td>{{ seconds }}</td>
+    </tr>
+  </tbody>
+</table>

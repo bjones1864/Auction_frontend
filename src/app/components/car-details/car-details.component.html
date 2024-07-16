@@ -1,30 +1,41 @@
-<h3 style="color: rgb(22, 28, 41)">Car Details</h3>
+<h3 class="text-center mt-3 mb-2" >Car Details</h3>
+@if(isActiveAuction()){
+  <app-timer [timeRemaining]=this.displayAuction.endTime >Timer</app-timer>}
+  @if(!activeAuction){
+    <h2 style="color: crimson">Sorry, this auction has ended!!!</h2>
+    }
 
-@if(!activeAuction){
-<h2 style="color: crimson">Sorry, this auction has ended!!!</h2>
-}
+<div class="row">
+<div class="offset-1 col-4">
+<ul class="list-group">
+  <li class="list-group-item">Make: {{ displayAuction.car.make }}</li>
+  <li class="list-group-item">Model: {{ displayAuction.car.model }}</li>
+  <li class="list-group-item">Year: {{ displayAuction.car.year }}</li>
+  <li class="list-group-item">Transmission: {{ displayAuction.car.transmission }}</li>
+  <li class="list-group-item">Class: {{ displayAuction.car.class }}</li>
+  <li class="list-group-item">Cylinder: {{ displayAuction.car.cylinders }}</li>
+  <li class="list-group-item">Fuel Type: {{ displayAuction.car.fuelType }}</li>
+  <li class="list-group-item">Combination_Mpg: {{ displayAuction.car.combinationMpg }}</li>
+  <li class="list-group-item">City Mpg: {{ displayAuction.car.cityMpg }}</li>
+  <li class="list-group-item">Highway Mpg: {{ displayAuction.car.highwayMpg }}</li>
+  <li class="list-group-item">Color: {{ displayAuction.car.color }}</li>
+  <li class="list-group-item">Drive: {{ displayAuction.car.drive }}</li>
+  <li class="list-group-item">Displacement: {{ displayAuction.car.displacement }}</li>
+  <li class="list-group-item">Mileage: {{ displayAuction.car.mileage }}</li>
+ 
+ 
 
-<ul>
-  <li>Make: {{ displayAuction.car.make }}</li>
-  <li>Model: {{ displayAuction.car.model }}</li>
-  <li>Year: {{ displayAuction.car.year }}</li>
-  <li>Transmission: {{ displayAuction.car.transmission }}</li>
-  <li>Class: {{ displayAuction.car.class }}</li>
-  <li>Cylinder: {{ displayAuction.car.cylinders }}</li>
-  <li>Fuel Type: {{ displayAuction.car.fuelType }}</li>
-  <li>Combination_Mpg: {{ displayAuction.car.combinationMpg }}</li>
-  <li>City Mpg: {{ displayAuction.car.cityMpg }}</li>
-  <li>Highway Mpg: {{ displayAuction.car.highwayMpg }}</li>
-  <li>Color: {{ displayAuction.car.color }}</li>
-  <li>Drive: {{ displayAuction.car.drive }}</li>
-  <li>Displacement: {{ displayAuction.car.displacement }}</li>
-  <li>Mileage: {{ displayAuction.car.mileage }}</li>
-  <li>StartTime: {{ displayAuction.startTime }}</li>
-  <li>EndTime: {{ displayAuction.endTime }}</li>
-  <li><img src="{{displayAuction.car.image}}" ></li>
-  <li>Distance: {{distance}}</li>
+  
   <!-- <li>Seller Id: {{displayAuction.sellerId}}</li> -->
 </ul>
+
+</div>
+
+<div class="offset-2 col-4">
+<img class="rounded img-fluid" src="{{displayAuction.car.image}}"  >
+<p>Distance from seller: {{distance}} miles</p>
+<p><b>Auction Start Time:</b> {{ displayAuction.startTime|date:'medium' }}</p>
+<p><b>Auction End Time:</b> {{ displayAuction.endTime|date:'medium' }}</p>
 
 @if(isRegistered()&&activeAuction && (displayAuction.sellerId!=currentUserId)){
 <input type="number" [(ngModel)]="currentBid.bidAmmount" [min]="currentHighBid" />
@@ -71,6 +82,6 @@
 </ul>
 }
 
-@if(isActiveAuction()){
-  <app-timer [timeRemaining]=this.displayAuction.endTime >Timer</app-timer>}
 
+</div>
+</div>
