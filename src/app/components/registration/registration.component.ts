@@ -26,7 +26,7 @@ export class RegistrationComponent {
     this.formUser.name = this._userService.user.name;
     this.formUser.email = this._userService.user.email;
     this._userService.registerUser(this.formUser).subscribe((response) => {
-      console.log(response);
+      //console.log(response);
        });}
 
 

@@ -25,7 +25,7 @@ export class UserService {
         this.user = userResponse;
         //if login fails, it will return null.
         this.loggedIn = userResponse != null;
-        console.log(this.user);
+        //console.log(this.user);
       }
     );
   }

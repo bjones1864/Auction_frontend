@@ -9,20 +9,20 @@
 <div class="row mb-5">
 <div class="offset-1 col-4">
 <ul class="list-group">
-  <li class="list-group-item">Make: {{ displayAuction.car.make }}</li>
-  <li class="list-group-item">Model: {{ displayAuction.car.model }}</li>
+  <li class="list-group-item text-capitalize">Make: {{ displayAuction.car.make }}</li>
+  <li class="list-group-item text-capitalize">Model: {{ displayAuction.car.model }}</li>
   <li class="list-group-item">Year: {{ displayAuction.car.year }}</li>
   <li class="list-group-item">Transmission: {{ displayAuction.car.transmission }}</li>
   <li class="list-group-item">Class: {{ displayAuction.car.class }}</li>
   <li class="list-group-item">Cylinder: {{ displayAuction.car.cylinders }}</li>
   <li class="list-group-item">Fuel Type: {{ displayAuction.car.fuelType }}</li>
-  <li class="list-group-item">Combination_Mpg: {{ displayAuction.car.combinationMpg }}</li>
+  <li class="list-group-item">Combination Mpg: {{ displayAuction.car.combinationMpg }}</li>
   <li class="list-group-item">City Mpg: {{ displayAuction.car.cityMpg }}</li>
   <li class="list-group-item">Highway Mpg: {{ displayAuction.car.highwayMpg }}</li>
   <li class="list-group-item">Color: {{ displayAuction.car.color }}</li>
   <li class="list-group-item">Drive: {{ displayAuction.car.drive }}</li>
-  <li class="list-group-item">Displacement: {{ displayAuction.car.displacement }}</li>
-  <li class="list-group-item">Mileage: {{ displayAuction.car.mileage }}</li>
+  <li class="list-group-item">Displacement: {{ displayAuction.car.displacement | number:'':'en-US' }}</li>
+  <li class="list-group-item">Mileage: {{ displayAuction.car.mileage | number:'':'en-US' }}</li>
  
  
 
@@ -34,7 +34,7 @@
 
 <div class="offset-2 col-5">
 <img class="rounded img-fluid" src="{{displayAuction.car.image}}"  >
-<p>Distance from seller: {{distance}} miles</p>
+<p>Distance from seller: {{distance | number:'':'en-US'}} miles</p>
 <p><b>Auction Start Time:</b> {{ displayAuction.startTime|date:'medium' }}</p>
 <p><b>Auction End Time:  </b> {{ displayAuction.endTime|date:'medium' }}</p>
 

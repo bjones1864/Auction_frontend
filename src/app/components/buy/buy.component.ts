@@ -40,7 +40,7 @@ export class BuyComponent {
 
   getAllAuctions() {
     this._auctionService.getAllAuctions().subscribe((response: Auction[]) => {
-      console.log(response);
+      //console.log(response);
       this.allAuctions = response;
       this.fetchHighestBids();
     });

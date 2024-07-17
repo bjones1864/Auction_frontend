@@ -42,7 +42,7 @@ export class SellComponent {
       .getCarsApi(this.formMake, this.formModel, this.formYear)
       .subscribe((response: CarApi[]) => {
         this.filteredCARS = response;
-        console.log(this.filteredCARS);
+        //console.log(this.filteredCARS);
       });
   }
 
@@ -93,7 +93,7 @@ export class SellComponent {
             this._auctionService
               .postAuction(this.myAUCTION)
               .subscribe((responseAuction: Auction) => {
-                console.log(responseAuction);
+                //console.log(responseAuction);
                 // console.log()
                 this.refreshAndRedirect();
               });
