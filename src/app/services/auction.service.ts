@@ -9,8 +9,8 @@ import { Action } from 'rxjs/internal/scheduler/Action';
   providedIn: 'root',
 })
 export class AuctionService {
-  //url: string = 'https://carauctionbackend20240705110500.azurewebsites.net';
-  url: string = 'https://localhost:7158';
+  url: string = 'https://carauctionbackend20240705110500.azurewebsites.net';
+  //url: string = 'https://localhost:7158';
 
   constructor(private http: HttpClient) {}
   allAuctions: Auction[] = [];

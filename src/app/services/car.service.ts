@@ -10,8 +10,8 @@ import { CarApi } from '../models/car-api';
 export class CarService {
   constructor(private http:HttpClient){}
   allCars:Car[] = [];
-  // url:string = "https://carauctionbackend20240705110500.azurewebsites.net"
-  url: string = 'https://localhost:7158';
+  url:string = "https://carauctionbackend20240705110500.azurewebsites.net"
+  //url: string = 'https://localhost:7158';
   getCarsApi(make:string,model:string,year:number):Observable<CarApi[]>{
       return this.http.get<CarApi[]>(`${this.url}/api/Car?make=${make}&model=${model}&year=${year}`)
   }

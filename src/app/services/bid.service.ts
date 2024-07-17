@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 export class BidService {
 
   constructor(private http:HttpClient) { }
-//url: string = 'https://carauctionbackend20240705110500.azurewebsites.net';
-  url:string = "https://localhost:7158"
+  url: string = 'https://carauctionbackend20240705110500.azurewebsites.net';
+  //url:string = "https://localhost:7158"
   allBid:Bid[] = [];
 
   getBid(id:number):Observable<Bid[]>{

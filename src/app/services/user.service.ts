@@ -15,9 +15,9 @@ export class UserService {
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
   registered: boolean = false;
-  //url:string = "https://carauctionbackend20240705110500.azurewebsites.net";
+  url:string = "https://carauctionbackend20240705110500.azurewebsites.net";
 
-  url: string = 'https://localhost:7158';
+  //url: string = 'https://localhost:7158';
 
   login() {
     this.socialAuthServiceConfig.authState.subscribe(
