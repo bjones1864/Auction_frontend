@@ -1,1 +1,89 @@
-<p>car-details works!</p>
+<h3 class="text-center mt-3 mb-2" >Car Details</h3>
+@if(isActiveAuction()){
+  <app-timer [timeRemaining]=this.displayAuction.endTime >Timer</app-timer>}
+
+    @if(!activeAuction){
+      <h2 class="text-center text-danger mb-4">Sorry, this auction has ended!!!</h2>
+      }
+
+<div class="row mb-5">
+<div class="offset-1 col-4">
+<ul class="list-group">
+  <li class="list-group-item">Make: {{ displayAuction.car.make }}</li>
+  <li class="list-group-item">Model: {{ displayAuction.car.model }}</li>
+  <li class="list-group-item">Year: {{ displayAuction.car.year }}</li>
+  <li class="list-group-item">Transmission: {{ displayAuction.car.transmission }}</li>
+  <li class="list-group-item">Class: {{ displayAuction.car.class }}</li>
+  <li class="list-group-item">Cylinder: {{ displayAuction.car.cylinders }}</li>
+  <li class="list-group-item">Fuel Type: {{ displayAuction.car.fuelType }}</li>
+  <li class="list-group-item">Combination_Mpg: {{ displayAuction.car.combinationMpg }}</li>
+  <li class="list-group-item">City Mpg: {{ displayAuction.car.cityMpg }}</li>
+  <li class="list-group-item">Highway Mpg: {{ displayAuction.car.highwayMpg }}</li>
+  <li class="list-group-item">Color: {{ displayAuction.car.color }}</li>
+  <li class="list-group-item">Drive: {{ displayAuction.car.drive }}</li>
+  <li class="list-group-item">Displacement: {{ displayAuction.car.displacement }}</li>
+  <li class="list-group-item">Mileage: {{ displayAuction.car.mileage }}</li>
+ 
+ 
+
+  
+  <!-- <li>Seller Id: {{displayAuction.sellerId}}</li> -->
+</ul>
+
+</div>
+
+<div class="offset-2 col-5">
+<img class="rounded img-fluid" src="{{displayAuction.car.image}}"  >
+<p>Distance from seller: {{distance}} miles</p>
+<p><b>Auction Start Time:</b> {{ displayAuction.startTime|date:'medium' }}</p>
+<p><b>Auction End Time:  </b> {{ displayAuction.endTime|date:'medium' }}</p>
+
+@if(isRegistered()&&activeAuction && (displayAuction.sellerId!=currentUserId)){
+<input type="number" [(ngModel)]="currentBid.bidAmmount" [min]="currentHighBid" placeholder="Enter Bid Amount"/>
+<button class="btn btn-success px-2 mx-2" (click)="AddBid()" [routerLink]="'/'"  [disabled]="this.currentBid.bidAmmount<currentHighBid">Submit Bid</button>
+@if(this.currentBid.bidAmmount<currentHighBid){
+<p> Value must be greater than {{currentHighBid}}</p>}
+}
+
+<h5 class="text-center">Bid History</h5>
+<table class="w-100 text-center border table rounded">
+  <thead>
+    <tr>
+      <th>Buyer ID</th>
+      <th>Buyer Bid Date</th>
+      <th>Buyer Bid Amount</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (b of allBids; track $index) {
+
+    <tr>
+      <td>
+        {{ b.buyerId }}
+      </td>
+      <td>
+        {{ b.timestamp | date:'medium'  }}
+      </td>
+      <td>
+        {{ b.bidAmmount | currency: 'USD' : 'symbol' : '1.0-0' }}
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+
+@if(winningBid){
+<ul>
+  <li>Name: {{ seller.name }}</li>
+  <li>Email: {{ seller.email }}</li>
+  <li>Address: {{ seller.streetAddress }}</li>
+  <li>City: {{ seller.city }}</li>
+  <li>State: {{ seller.state }}</li>
+  <li>Zip: {{ seller.zip }}</li>
+</ul>
+}
+
+
+</div>
+</div>

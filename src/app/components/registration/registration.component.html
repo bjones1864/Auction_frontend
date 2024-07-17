@@ -1,0 +1,12 @@
+<h3 class="text-center">Register as  new User!</h3>
+
+@if(isLoggedIn()){
+    <div class="container">
+   <p class="my-1"> <label for="street_address">Street Address: </label></p> <input class="mb-1" type="text" id="street_address" [(ngModel)]="formUser.streetAddress" placeholder="enter street address" />
+   <p class="my-1"> <label for="city">City: </label> </p> <input id="city" class="mb-1" type="text" [(ngModel)]="formUser.city" placeholder="enter city" />
+   <p class="my-1"> <label for="state">State: </label> </p> <input id="state" class="mb-1" type="text" [(ngModel)]="formUser.state" placeholder="enter state" />
+   <p class="my-1"> <label for="zip">Zip Code: </label> </p> <input id="zip" class="mb-1" type="text" [(ngModel)]="formUser.zip" placeholder="enter zip code" />
+    <button class="btn btn-outline-dark mx-2" (click)="postRegistration()" [routerLink]="'/'">Submit</button>
+</div>
+
+}

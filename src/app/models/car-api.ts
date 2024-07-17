@@ -1,15 +1,14 @@
-export interface Car {
-
+export interface CarApi {
     id:              number;
     sellerId:        number;
-    cityMpg:        number;
+    city_mpg:        number;
     class:           string;
-    combinationMpg: number;
+    combination_mpg: number;
     cylinders:       number;
     displacement:    number;
     drive:           string;
-    fuelType:       string;
-    highwayMpg:     number;
+    fuel_type:       string;
+    highway_mpg:     number;
     make:            string;
     model:           string;
     transmission:    string;
@@ -17,6 +16,4 @@ export interface Car {
     color:           string;
     mileage:         number;
     image:           string;
-
 }
-

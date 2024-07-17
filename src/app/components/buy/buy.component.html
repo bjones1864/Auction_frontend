@@ -1,1 +1,42 @@
-<p>buy works!</p>
+<h4 class="text-center" >Auctions</h4>
+
+<input type="radio" id="all" name="fav_language" [value]=true [(ngModel)]="allStatuses" class="form-check-input" >
+<label for="all" class="form-check-label">All</label> 
+
+<input type="radio" id="active" name="fav_language" [value]=false [(ngModel)]="allStatuses" class="form-check-input ms-3">
+<label for="active" class="form-check-label">Active</label>
+
+
+
+<table class="table col-8">
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Year</th>
+      <th>Color</th>
+      <th>Current Bid</th>
+      <th>End Date</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (c of allAuctions; track $index) {
+    @if((auctionStatus[c.carId]=="Active")||allStatuses){
+      <tr>
+        <td class="text-capitalize">{{c.car.make}}</td>
+        <td class="text-capitalize">{{c.car.model}}</td>
+        <td>{{c.car.year}}</td>
+        <td>{{c.car.color}}</td>
+        <td >{{ highestBids[c.carId]|currency: 'USD' : 'symbol' : '1.0-0'}}</td>
+        <td>{{c.endTime|date:'medium'}}</td>
+        <td [ngClass]="statusClasses[auctionStatus[c.carId]]" class="fw-bold">{{auctionStatus[c.carId]}}</td>
+        <td><button [routerLink]="['/',c.id]" class="btn btn-outline-dark" >Details</button></td>
+    </tr>
+    }
+  }
+  </tbody>
+
+</table>
