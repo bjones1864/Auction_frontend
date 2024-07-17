@@ -57,9 +57,9 @@ export class CarDetailsComponent {
       this._auctionService
         .getAuctionById(this.id)
         .subscribe((response: Auction) => {
-          
-          this.activeAuction = this.isActiveAuction();
           this.displayAuction = response;
+          this.activeAuction = this.isActiveAuction();
+          
           //this.timeRemaining = this.getCountdown();
           this.bidHistory();
           // console.log(this.displayAuction);
