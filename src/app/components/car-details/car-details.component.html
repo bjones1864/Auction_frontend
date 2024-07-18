@@ -42,7 +42,7 @@
 <input type="number" [(ngModel)]="currentBid.bidAmmount" [min]="currentHighBid" placeholder="Enter Bid Amount"/>
 <button class="btn btn-success px-2 mx-2" (click)="AddBid()" [routerLink]="'/'"  [disabled]="this.currentBid.bidAmmount<currentHighBid">Submit Bid</button>
 @if(this.currentBid.bidAmmount<currentHighBid){
-<p> Value must be greater than {{currentHighBid}}</p>}
+<p> Value must be greater than {{currentHighBid | currency: 'USD' : 'symbol' : '1.0-0'}}</p>}
 }
 
 <h5 class="text-center">Bid History</h5>
