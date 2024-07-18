@@ -33,8 +33,18 @@ export class SellComponent {
   tempCar: CarApi = {} as CarApi;
   carSelected: boolean = false;
 
+  ngOnInit() {
+    if (this.isLoggedIn()) {
+      this._userService.isRegistered();
+    }
+  }
+
   isLoggedIn(): boolean {
     return this._userService.loggedIn;
+  }
+
+  isRegistered(): boolean {
+    return this._userService.registered
   }
 
   formSubmit() {
